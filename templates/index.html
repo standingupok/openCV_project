@@ -286,7 +286,30 @@
 
     <!-- end service section -->
 
-    <!-- about section -->
+    <!-- predict section -->
+    <section class="predict_section">
+      <div class="container">
+        <div>
+          <h1>Upload an Image to Predict Emotion</h1>
+
+          <form id="upload-form" enctype="multipart/form-data">
+            <input
+              type="file"
+              name="files"
+              id="file-input"
+              accept="image/*"
+              multiple
+            />
+            <button type="button" id="button_predict">Submit</button>
+          </form>
+          <div id="result_display" class="row"></div>
+        </div>
+      </div>
+    </section>
+
+    <!--  end predict section -->
+
+    <!--  about section -->
 
     <section class="about_section layout_padding">
       <div class="container-fluid">
