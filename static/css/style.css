@@ -541,7 +541,129 @@ a:focus {
 .predict_section .container {
   flex-direction: row;
 }
+.card-load-image {
+  width: 100%;
+  height: auto;
+  padding: 15px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  overflow: hidden;
+  background: #fafbff;
+}
 
+.card-load-image .top-load-image {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.card-load-image .top-load-image p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #879a9a;
+}
+
+.card-load-image .top-load-image button {
+  outline: 0;
+  border: 0;
+  background: #5256ad;
+  color: #fff;
+  border-radius: 4px;
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  font-size: 0.8rem;
+  padding: 8px 13px;
+}
+
+.card-load-image .top-load-image button:hover {
+  opacity: 0.8;
+}
+
+.card-load-image .top-load-image button:active {
+  transform: translateY(5px);
+}
+
+#upload-form {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+  border: 2px dashed #d5d5e1;
+  color: #c8c9dd;
+  font-size: 1.5rem;
+  font-weight: 500;
+  position: relative;
+  background: #dfe3f259;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  margin-top: 20px;
+}
+
+#upload-form .select {
+  color: #5256ad;
+  margin-left: 7px;
+  cursor: pointer;
+}
+
+#upload-form input {
+  display: none;
+}
+
+#upload-form.drag-hover {
+  border-style: solid;
+  font-size: 2rem;
+  color: #c8c9dd;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.img-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  position: relative;
+  height: auto;
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.img-container .image {
+  height: 85px;
+  width: 85px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 7px;
+  margin-right: 7px;
+}
+
+.img-container .image:nth-child(4n) {
+  margin-right: 0;
+}
+
+.img-container .image img {
+  height: 100%;
+  width: 100%;
+}
+
+.img-container .image span {
+  position: absolute;
+  top: -4px;
+  right: 5px;
+  cursor: pointer;
+  font-size: 22px;
+  color: #fff;
+}
+.img-container .image span:hover {
+  opacity: 0.8;
+}
 .cover-image {
   display: flex;
   flex-direction: column;
@@ -550,7 +672,18 @@ a:focus {
   text-align: center; /* Căn giữa văn bản */
   width: 100%;
 }
-
+#button_predict {
+  outline: 0;
+  border: 0;
+  background: #5256ad;
+  color: #fff;
+  border-radius: 4px;
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  font-size: 0.8rem;
+  padding: 8px 13px;
+}
 .about_section {
   color: #ffffff;
   padding-left: 10%;

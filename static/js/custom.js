@@ -1,6 +1,12 @@
 const resultDisplay = document.getElementById("result_display");
-// navigation  menu js
 const buttonPredict = document.getElementById("button_predict");
+const uploadButton = document.querySelector(".upload-button");
+const uploadForm = document.getElementById("upload-form");
+const imgContainer = document.querySelector(".img-container");
+const text = document.querySelector(".innet");
+const browse = document.querySelector(".select");
+const formInput = document.querySelector(".form-input.file");
+// navigation  menu js
 function openNav() {
   $("#myNav").addClass("menu_width");
   $(".menu_btn-style").fadeIn();
@@ -44,8 +50,76 @@ $(".team_carousel").owlCarousel({
   },
 });
 
+// load file
+let files = [];
+browse.addEventListener("click", () => formInput.click());
+formInput.addEventListener("change", () => {
+  const file = formInput.files;
+  for (let i = 0; i < file.length; i++) {
+    if (files.every((e) => e.name != file[i].name)) files.push(file[i]);
+  }
+  uploadForm.reset();
+  showImages();
+});
+
+const showImages = () => {
+  let images = "";
+  files.forEach((e, i) => {
+    images += `<div class="image">
+                <img src="${URL.createObjectURL(e)}" alt="" />
+                <span onclick="delImage(${i})">&times;</span
+                >
+              </div>`;
+  });
+
+  imgContainer.innerHTML = images;
+};
+
+const delImage = (index) => {
+  files.splice(index, 1);
+  showImages();
+};
+
+uploadForm.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  uploadForm.classList.add("drag-hover");
+  text.innerHTML = `Drop images`;
+});
+
+uploadForm.addEventListener("dragleave", (e) => {
+  e.preventDefault();
+  uploadForm.classList.remove("drag-hover");
+  text.innerHTML = `Drag & drop image here or <span class="select">Browse</span>`;
+});
+
+uploadForm.addEventListener("drop", (e) => {
+  e.preventDefault();
+
+  uploadForm.classList.remove("drag-hover");
+  text.innerHTML = `Drag & drop image here or <span class="select">Browse</span>`;
+
+  const file = e.dataTransfer.files;
+  for (let i = 0; i < file.length; i++) {
+    if (files.every((e) => e.name != file[i].name)) files.push(file[i]);
+  }
+  showImages();
+});
+
+uploadButton.addEventListener("click", () => formInput.click());
+
+// predict
 buttonPredict.addEventListener("click", async function () {
-  const formData = new FormData(document.getElementById("upload-form"));
+  // const formData = new FormData(uploadForm);
+  const formData = new FormData();
+  files.forEach((file) => {
+    console.log(file);
+    formData.append("files", file);
+  });
+  for (let [key, value] of formData.entries()) {
+    console.log(key, value);
+  }
+  console.log(formData);
+
   try {
     const response = await fetch("/predict", {
       method: "POST",
@@ -69,7 +143,9 @@ buttonPredict.addEventListener("click", async function () {
                     style="max-width: 300px"
                   />
                 </div>`;
-        resultDisplay.appendChild(img_container);
+        resultDisplay.insertBefore(img_container, resultDisplay.firstChild);
+        files = [];
+        showImages();
       });
     }
   } catch (error) {

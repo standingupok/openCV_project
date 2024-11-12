@@ -291,8 +291,28 @@
       <div class="container">
         <div>
           <h1>Upload an Image to Predict Emotion</h1>
+          <div class="card-load-image">
+            <div class="top-load-image">
+              <p>Drag and drop image</p>
+              <button class="upload-button" type="button">Upload</button>
+            </div>
+            <form id="upload-form" method="post" enctype="multipart/form-data">
+              <span class="innet"
+                >Drag & drop image here or
+                <span class="select">Browse</span></span
+              >
+              <input
+                name="files"
+                type="file"
+                class="form-input file"
+                accept="image/*"
+                multiple
+              />
+            </form>
 
-          <form id="upload-form" enctype="multipart/form-data">
+            <div class="img-container"></div>
+          </div>
+          <!-- <form id="upload-form" enctype="multipart/form-data">
             <input
               type="file"
               name="files"
@@ -300,8 +320,9 @@
               accept="image/*"
               multiple
             />
-            <button type="button" id="button_predict">Submit</button>
-          </form>
+            
+          </form> -->
+          <button type="button" id="button_predict">Predict</button>
           <div id="result_display" class="row"></div>
         </div>
       </div>
