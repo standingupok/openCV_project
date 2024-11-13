@@ -672,6 +672,13 @@ a:focus {
   text-align: center; /* Căn giữa văn bản */
   width: 100%;
 }
+#result_display {
+  margin: 20px 0;
+  align-items: center;
+}
+#result_display .col {
+  margin: 10px 0;
+}
 #button_predict {
   outline: 0;
   border: 0;

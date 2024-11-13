@@ -132,17 +132,14 @@ buttonPredict.addEventListener("click", async function () {
     } else {
       data.files.forEach((file) => {
         const img_container = document.createElement("div");
-        img_container.classList.add("col");
+        img_container.classList.add("col", "col-md-3");
         img_container.innerHTML = `
-                <div class="cover-image">
-                  <h2>Prediction Result</h2>
                   <img
                     id="uploaded-image"
                     src="${file.image_url}?t=${new Date().getTime()}"
                     alt="Uploaded Image"
-                    style="max-width: 300px"
-                  />
-                </div>`;
+                    style="max-width:100%"
+                  />`;
         resultDisplay.insertBefore(img_container, resultDisplay.firstChild);
         files = [];
         showImages();
