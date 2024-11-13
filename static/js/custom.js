@@ -112,13 +112,8 @@ buttonPredict.addEventListener("click", async function () {
   // const formData = new FormData(uploadForm);
   const formData = new FormData();
   files.forEach((file) => {
-    console.log(file);
     formData.append("files", file);
   });
-  for (let [key, value] of formData.entries()) {
-    console.log(key, value);
-  }
-  console.log(formData);
 
   try {
     const response = await fetch("/predict", {
