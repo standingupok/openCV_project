@@ -538,9 +538,11 @@ a:focus {
   z-index: 2;
 }
 
+/*  end image loader section */
 .predict_section .container {
   flex-direction: row;
 }
+
 .card-load-image {
   width: 100%;
   height: auto;
@@ -661,11 +663,13 @@ a:focus {
   font-size: 22px;
   color: #fff;
 }
+
 .img-container .image span:hover {
   opacity: 0.8;
 }
+/*  end image loader section */
 
-/* // result section */
+/* result section */
 .gallery {
   margin: 20px 0;
   columns: 4;
@@ -682,9 +686,13 @@ a:focus {
   max-width: 100%;
   border-radius: 15px;
 }
-/* end result section */
 
-#button_predict {
+.predict-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+#button-predict {
   outline: 0;
   border: 0;
   background: #5256ad;
@@ -696,6 +704,38 @@ a:focus {
   font-size: 0.8rem;
   padding: 8px 13px;
 }
+
+#button-predict:hover {
+  opacity: 0.8;
+}
+
+#button-predict:active {
+  transform: translateY(5px);
+}
+
+#button-predict__camera {
+  outline: 0;
+  border: 0;
+  background: #5256ad;
+  color: #fff;
+  border-radius: 4px;
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  font-size: 0.8rem;
+  padding: 8px 13px;
+}
+
+#button-predict__camera:hover {
+  opacity: 0.8;
+}
+
+#button-predict__camera:active {
+  transform: translateY(5px);
+}
+
+/* end result section */
+
 .about_section {
   color: #ffffff;
   padding-left: 10%;

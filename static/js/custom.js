@@ -1,5 +1,6 @@
 const resultDisplay = document.getElementById("result_display");
-const buttonPredict = document.getElementById("button_predict");
+const buttonPredict = document.getElementById("button-predict");
+const buttonPredictCamera = document.getElementById("button-predict__camera");
 const uploadButton = document.querySelector(".upload-button");
 const uploadForm = document.getElementById("upload-form");
 const imgContainer = document.querySelector(".img-container");
@@ -153,5 +154,17 @@ buttonPredict.addEventListener("click", async function () {
     }
   } catch (error) {
     console.error("Error:", error);
+  }
+});
+
+buttonPredictCamera.addEventListener("click", async function () {
+  try {
+    const response = await fetch("/predict_camera", { method: "GET" });
+    const data = await response.json();
+    if (data.error) alert(data.error);
+    else alert("Camera processing completed.");
+  } catch (error) {
+    console.log("Error: ", error);
+    alert("An error occured while processing the camera input.");
   }
 });

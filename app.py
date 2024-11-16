@@ -43,6 +43,14 @@ def create_app():
             # print(response_data)
             return jsonify({"files": response_data})
 
+    @app.route('/predict_camera', methods = ['GET'])
+    def predict_camera_route():
+        result = predict_camera(model)
+        if result == "Camera processing completed.":
+            return jsonify({"message": result})
+        else:
+            return jsonify({"error": "Failed to process camera input"}), 500
+
     if __name__ == '__main__':
         app.run(debug=True)
 

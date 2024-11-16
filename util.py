@@ -48,19 +48,21 @@ def predict_video(file, model):
 
     # read video
     cap = cv2.VideoCapture(file_path)
-    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-    # prepare tool for process video
-    # fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(output_video_path, fourcc, 30.0, (frame_width, frame_height))
+    # Get video dimensions and ensure they are even
+    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)) // 2 * 2
+    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)) // 2 * 2
+
+    # Prepare VideoWriter
+    fourcc = cv2.VideoWriter_fourcc(*'avc1')  # Use 'mp4v' for MP4 files, 'XVID' for AVI
+    out = cv2.VideoWriter(output_video_path, fourcc, cap.get(cv2.CAP_PROP_FPS), (frame_width, frame_height))
 
     # process video
     while True:
         ret, frame = cap.read()
         if not ret:
             break
+        # Process prediction
         processed_frame = process_frame(frame, model, False)
         out.write(processed_frame)
 
@@ -72,25 +74,50 @@ def predict_video(file, model):
     cv2.destroyAllWindows()
     return output_video_path;
 
+def predict_camera(model):
+    cap = cv2.VideoCapture(0)  # Open the default camera (index 0)
+
+    if not cap.isOpened():
+        return "Error: Cannot open the camera."
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+        
+        # Process prediction
+        processed_frame = process_frame(frame, model, False)
+
+        # Show the frame with detected objects
+        cv2.imshow('Live Camera Prediction', processed_frame)
+
+        # Break the loop if 'q' is pressed
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+    return "Camera processing completed."
+
 def process_frame(frame, model, isImage):
-    # print(frame.shape, frame.dtype)
+    if isImage:
+        desired_width = 640  # Adjust as needed
+        desired_height = 480  # Adjust as needed
+        
+        # Kích thước ban đầu của ảnh
+        original_height, original_width = frame.shape[:2]
 
-    desired_width = 640  # Adjust as needed
-    desired_height = 480  # Adjust as needed
-    
-    # Kích thước ban đầu của ảnh
-    original_height, original_width = frame.shape[:2]
+        # Tính tỷ lệ cho chiều rộng và chiều cao
+        width_ratio = desired_width / original_width
+        height_ratio = desired_height / original_height
 
-    # Tính tỷ lệ cho chiều rộng và chiều cao
-    width_ratio = desired_width / original_width
-    height_ratio = desired_height / original_height
+        # Chọn tỷ lệ lớn hơn để ảnh lấp đầy khung
+        scale = max(width_ratio, height_ratio)
+        new_width = int(original_width * scale)
+        new_height = int(original_height * scale)
+        frame = cv2.resize(frame, (new_width, new_height), interpolation=cv2.INTER_AREA)
 
-    # Chọn tỷ lệ lớn hơn để ảnh lấp đầy khung
-    scale = max(width_ratio, height_ratio)
-    new_width = int(original_width * scale)
-    new_height = int(original_height * scale)
-
-    if isImage: frame = cv2.resize(frame, (new_width, new_height), interpolation=cv2.INTER_AREA)
     else: frame = cv2.resize(frame, (1280, 720)) 
 
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
