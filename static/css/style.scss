@@ -95,7 +95,7 @@ p {
     height: auto;
 
     .header_section {
-      box-shadow: 0 0 5px 0 rgba($color: #000000, $alpha: .25);
+      box-shadow: 0 0 5px 0 rgba($color: #000000, $alpha: 0.25);
     }
   }
 }
@@ -348,7 +348,8 @@ a:focus {
   flex: 1;
   color: $white;
 
-  .row {}
+  .row {
+  }
 
   #customCarousel1,
   .carousel-inner,
@@ -441,7 +442,7 @@ a:focus {
   position: relative;
 
   .row {
-    &>div {
+    & > div {
       padding: 0;
     }
   }
@@ -471,7 +472,7 @@ a:focus {
       }
     }
 
-    &>div {
+    & > div {
       position: relative;
       z-index: 3;
     }
@@ -562,7 +563,13 @@ a:focus {
   padding-left: 10%;
   padding-right: 5%;
   background-color: $primary1;
-  background: linear-gradient(to bottom, transparent 5%, $primary1 5%, $primary1 95%, transparent 95%);
+  background: linear-gradient(
+    to bottom,
+    transparent 5%,
+    $primary1 5%,
+    $primary1 95%,
+    transparent 95%
+  );
 
   .box {
     display: flex;
@@ -767,12 +774,8 @@ a:focus {
 
 // end team section
 
-
-
 /* contact section */
 .contact_section {
-
-
   .heading_container {
     margin-bottom: 25px;
   }
@@ -790,13 +793,11 @@ a:focus {
   }
 
   .contact-form {
-
     h5 {
       color: $white;
       font-weight: 600;
       text-align: center;
     }
-
 
     .top_input {
       display: flex;
@@ -805,7 +806,6 @@ a:focus {
       input {
         width: 48%;
       }
-
     }
 
     input {
@@ -815,7 +815,7 @@ a:focus {
       padding-left: 15px;
       border: none;
       outline: none;
-      box-shadow: 0 0 20px 0 rgba($color: #000000, $alpha: .1);
+      box-shadow: 0 0 20px 0 rgba($color: #000000, $alpha: 0.1);
 
       &.message_input {
         height: 125px;
@@ -835,12 +835,10 @@ a:focus {
         @include hero_btn($btnColor, $white, 10px, 65px, 0);
       }
     }
-
   }
 }
 
 /* end contact section */
-
 
 // client section
 
@@ -897,11 +895,8 @@ a:focus {
           color: $btnColor;
         }
       }
-
-
     }
   }
-
 
   .owl-carousel {
     .owl-nav {
@@ -917,7 +912,6 @@ a:focus {
         margin: 0 20px;
         color: $white;
       }
-
     }
   }
 
@@ -945,8 +939,6 @@ a:focus {
 
 // end client section
 
-
-
 /* info section */
 .info_section {
   background-color: $primary1;
@@ -957,7 +949,6 @@ a:focus {
   }
 
   .info_contact {
-
     .contact_link_box {
       display: flex;
       flex-direction: column;
@@ -1021,8 +1012,6 @@ a:focus {
     }
   }
 
-
-
   form {
     input {
       border: 1px solid $btnColor;
@@ -1064,7 +1053,5 @@ a:focus {
     }
   }
 }
-
-
 
 // end footer section

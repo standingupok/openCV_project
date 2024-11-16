@@ -22,55 +22,25 @@ def create_app():
 
             files = request.files.getlist('files')  # Lấy tất cả các tệp
             response_data = []
+
             for file in files:
                 if file.filename.lower().endswith(('.jpg', '.png', '.jpeg')):
-                    # Process image for prediction
-                    frame = cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_COLOR)
-                    processed_frame = process_frame(frame, model)
-
-                    # save result
-                    predict_img_path = output_folder + file.filename;
-                    cv2.imwrite(predict_img_path, processed_frame)
-                    
-                    # append into response_data list
+                    predict_img_path = predict_img(file, model)
                     response_data.append({
-                        'emotion': predict_img_path,
+                        'isImage': True,
                         'image_url': predict_img_path
                     })
 
                 elif file.filename.lower().endswith(('.mp4', '.avi')):
-                    # save video
-                    fileName = file.filename
-                    file_path = "static/videos/" + fileName
-                    output_video_path = output_folder + fileName
-                    file.save(file_path)
-
-                    # read video
-                    cap = cv2.VideoCapture(file_path)
-
-                    # prepare tool for process video
-                    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-                    out = cv2.VideoWriter(output_video_path, fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
-
-                    # process video
-                    while True:
-                        ret, frame = cap.read()
-                        if not ret:
-                            break
-                        processed_frame = process_frame(frame, model)
-                        out.write(processed_frame)
-
-                    cap.release()
-                    out.release()
-                    
+                    output_video_path = predict_video(file, model)
                     response_data.append({
-                        'emotion': output_video_path,
-                        'image_url': output_video_path
+                        'isImage': False,
+                        'image_url': f"/static/predictions/{file.filename}"
                     })
                     
                 else:
                     return jsonify({"error": "Invalid file format"}), 400
-            print(response_data)
+            # print(response_data)
             return jsonify({"files": response_data})
 
     if __name__ == '__main__':

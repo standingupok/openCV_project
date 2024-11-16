@@ -127,14 +127,25 @@ buttonPredict.addEventListener("click", async function () {
     } else {
       data.files.forEach((file) => {
         const img_container = document.createElement("div");
-        img_container.classList.add("col", "col-md-3");
-        img_container.innerHTML = `
-                  <img
-                    id="uploaded-image"
-                    src="${file.image_url}?t=${new Date().getTime()}"
-                    alt="Uploaded Image"
-                    style="max-width:100%"
-                  />`;
+        img_container.classList.add("gallery-img-box");
+        if (file.isImage) {
+          img_container.innerHTML = `
+          <img
+          id="uploaded-image"
+          src="${file.image_url}?t=${new Date().getTime()}"
+          alt="Uploaded Image"
+          style="max-width:100%"
+          />`;
+        } else {
+          img_container.innerHTML = `<video
+          id="uploaded-video"
+          controls
+          style="max-width:100%"
+          >
+          <source src="${file.image_url}" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>`;
+        }
         resultDisplay.insertBefore(img_container, resultDisplay.firstChild);
         files = [];
         showImages();
@@ -144,32 +155,3 @@ buttonPredict.addEventListener("click", async function () {
     console.error("Error:", error);
   }
 });
-
-// async function submitForm() {
-//   const formData = new FormData(document.getElementById("upload-form"));
-
-//   try {
-//     const response = await fetch("/predict", {
-//       method: "POST",
-//       body: formData,
-//     });
-//     const data = await response.json();
-
-//     if (data.error) {
-//       alert(data.error);
-//     } else {
-//       const img_container = `<div id="result">
-//               <h2>Prediction Result</h2>
-//               <p id="emotion">${data.image_url}</p>
-//               <img
-//                 id="uploaded-image"
-//                 src="${data.image_url}"
-//                 alt="Uploaded Image"
-//                 style="display: none; max-width: 300px"
-//               />`;
-//       resultDisplay.appendChild();
-//     }
-//   } catch (error) {
-//     console.error("Error:", error);
-//   }
-// }
