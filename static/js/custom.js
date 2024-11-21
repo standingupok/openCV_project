@@ -7,51 +7,9 @@ const imgContainer = document.querySelector(".img-container");
 const text = document.querySelector(".innet");
 const browse = document.querySelector(".select");
 const formInput = document.querySelector(".form-input.file");
-// navigation  menu js
-function openNav() {
-  $("#myNav").addClass("menu_width");
-  $(".menu_btn-style").fadeIn();
-}
+const textProcessing = document.getElementById("text-processing");
 
-function closeNav() {
-  $("#myNav").removeClass("menu_width");
-  $(".menu_btn-style").fadeOut();
-}
-
-// get current year
-
-function displayYear() {
-  var d = new Date();
-  var currentYear = d.getFullYear();
-  document.querySelector("#displayYear").innerHTML = currentYear;
-}
-displayYear();
-
-// owl carousel slider js
-$(".team_carousel").owlCarousel({
-  loop: true,
-  margin: 0,
-  dots: true,
-  autoplay: true,
-  autoplayHoverPause: true,
-  center: true,
-  responsive: {
-    0: {
-      items: 1,
-    },
-    480: {
-      items: 2,
-    },
-    768: {
-      items: 3,
-    },
-    1000: {
-      items: 5,
-    },
-  },
-});
-
-// load file
+// load images
 let files = [];
 browse.addEventListener("click", () => formInput.click());
 formInput.addEventListener("change", () => {
@@ -110,7 +68,8 @@ uploadButton.addEventListener("click", () => formInput.click());
 
 // predict
 buttonPredict.addEventListener("click", async function () {
-  // const formData = new FormData(uploadForm);
+  textProcessing.classList.remove("hidden-text");
+
   const formData = new FormData();
   files.forEach((file) => {
     formData.append("files", file);
@@ -122,6 +81,7 @@ buttonPredict.addEventListener("click", async function () {
       body: formData,
     });
     const data = await response.json();
+    textProcessing.classList.add("hidden-text");
 
     if (data.error) {
       alert(data.error);

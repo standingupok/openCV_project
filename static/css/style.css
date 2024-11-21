@@ -539,6 +539,10 @@ a:focus {
 }
 
 /*  end image loader section */
+.predict_section {
+  margin: 20px 0;
+}
+
 .predict_section .container {
   flex-direction: row;
 }
@@ -690,6 +694,7 @@ a:focus {
 .predict-buttons {
   display: flex;
   justify-content: space-between;
+  margin: 5px 0;
 }
 
 #button-predict {
@@ -733,7 +738,12 @@ a:focus {
 #button-predict__camera:active {
   transform: translateY(5px);
 }
-
+#text-processing {
+  color: #879a9a;
+}
+.hidden-text {
+  display: none;
+}
 /* end result section */
 
 .about_section {
@@ -1295,6 +1305,7 @@ a:focus {
 
 /* info section */
 .info_section {
+  margin-top: 200px;
   background-color: #252525;
   color: #ffffff;
 }

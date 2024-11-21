@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from flask import Flask, render_template, request, jsonify, url_for
+from flask import Flask, render_template, request, jsonify
 from io import BytesIO
 from util import *
 
@@ -18,7 +18,6 @@ def create_app():
         if request.method == 'POST':
             if 'files' not in request.files:
                 return jsonify({"error": "No file uploaded"}), 400
-            # file = request.files['file']
 
             files = request.files.getlist('files')  # Lấy tất cả các tệp
             response_data = []

@@ -138,6 +138,7 @@ def process_frame(frame, model, isImage):
                     continue
                 
                 results = model.predict(source=roi_gray_frame)
+                
             for result in results:
                 class_id = int(result.probs.cpu().top1)
                 conf = float(result.probs.cpu().top1conf)
