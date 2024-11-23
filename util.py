@@ -23,7 +23,7 @@ output_folder = "static/predictions/"
 mtcnn = MTCNN(keep_all=True, device='cuda' if torch.cuda.is_available() else 'cpu')
 
 def load_model():
-    model = YOLO("best.pt")
+    model = YOLO("best_v2.pt")
     return model
 
 def predict_img(file, model):
