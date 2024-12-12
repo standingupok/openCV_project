@@ -1,3 +1,5 @@
 .venv/
 /static/predictions/*
 /static/videos/*
+!/static/predictions/.gitkeep
+!/static/videos/.gitkeep
