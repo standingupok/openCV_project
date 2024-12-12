@@ -23,12 +23,26 @@ formInput.addEventListener("change", () => {
 
 const showImages = () => {
   let images = "";
-  files.forEach((e, i) => {
-    images += `<div class="image">
-                <img src="${URL.createObjectURL(e)}" alt="" />
-                <span onclick="delImage(${i})">&times;</span
-                >
-              </div>`;
+  files.forEach((file, index) => {
+    const fileType = file.type;
+    if (fileType.startsWith("image/")) {
+      // Hiển thị ảnh
+      images += `<div class="image">
+                    <img src="${URL.createObjectURL(file)}" alt="" />
+                    <span onclick="delImage(${index})">&times;</span>
+                  </div>`;
+    } else if (fileType.startsWith("video/")) {
+      // Hiển thị video
+      images += `<div class="image">
+                    <video controls>
+                      <source src="${URL.createObjectURL(
+                        file
+                      )}" type="${fileType}">
+                      Your browser does not support the video tag.
+                    </video>
+                    <span onclick="delImage(${index})">&times;</span>
+                  </div>`;
+    }
   });
 
   imgContainer.innerHTML = images;
@@ -76,6 +90,8 @@ buttonPredict.addEventListener("click", async function () {
   });
 
   try {
+    files = [];
+    showImages();
     const response = await fetch("/predict", {
       method: "POST",
       body: formData,
@@ -108,8 +124,6 @@ buttonPredict.addEventListener("click", async function () {
           </video>`;
         }
         resultDisplay.insertBefore(img_container, resultDisplay.firstChild);
-        files = [];
-        showImages();
       });
     }
   } catch (error) {

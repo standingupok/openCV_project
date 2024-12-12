@@ -1,23 +1,10 @@
-import os
 import cv2
 import numpy as np
-from pathlib import Path
 from ultralytics import YOLO
-import os
 import cv2
 import torch
-from flask import Flask, request, jsonify
 from facenet_pytorch import MTCNN
-# Define emotion dictionary
-emotion_dict = {
-    0: "Angry",
-    1: "Disgust",
-    2: "Fear",
-    3: "Happy",
-    4: "Neutral",
-    5: "Sad",
-    6: "Surprise"
-}
+
 output_folder = "static/predictions/"
 
 mtcnn = MTCNN(keep_all=True, device='cuda' if torch.cuda.is_available() else 'cpu')
